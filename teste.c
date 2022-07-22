@@ -12,7 +12,7 @@ typedef struct aluno
         int cra;
         struct materias
         {
-            char nome[50];
+            char nome[7][50];
             int nota;
             int frequencia;
         } materias;
