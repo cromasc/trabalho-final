@@ -3,6 +3,8 @@
 #include <string.h>
 #include <locale.h>
 
+#define MAX_LENGTH 100
+
 typedef struct aluno
 {
     char nome[100];
@@ -12,13 +14,14 @@ typedef struct aluno
         int cra;
         struct materias
         {
-            char nome[50];
+            char nome[7][MAX_LENGTH];
             int nota;
             int frequencia;
         } materias;
     } notas;
     
 } aluno;
+
 
 int menu() {
     int r;
@@ -40,7 +43,9 @@ void main() {
                 r1 = menu();
             }else {
                 for (int i = 0; i < n; i++) {
-                    puts(vet_aluno[i].nome);
+                    printf("Nome: %s", vet_aluno[i].nome);
+                    printf("Número de matrícula: %d", vet_aluno[i].n_matricula);
+                    
                 }
             }
         } else if (r1 == 2) {
