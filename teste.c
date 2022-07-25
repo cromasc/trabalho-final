@@ -3,6 +3,8 @@
 #include <string.h>
 #include <locale.h>
 
+#define MAX_LENGTH 100
+
 typedef struct aluno
 {
     char nome[100];
@@ -19,6 +21,7 @@ typedef struct aluno
     } notas;
     
 } aluno;
+
 
 int menu() {
     int r;
@@ -45,11 +48,17 @@ void main() {
                     }
             }else {
                 for (int i = 0; i < n; i++) {
+<<<<<<< HEAD
                     printf("Nome: %s \nNúmero de matrícula: %d", vet_aluno[i].nome, vet_aluno[i].n_matricula);
                     printf("Digite ENTER para sair: ");
                     if (getchar() == "") {
                         r1 = menu();
                     }
+=======
+                    printf("Nome: %s", vet_aluno[i].nome);
+                    printf("Número de matrícula: %d", vet_aluno[i].n_matricula);
+                    
+>>>>>>> b6d06e4bcb1240c103400301ad13071b5623181a
                 }
             }
         } else if (r1 == 2) {
