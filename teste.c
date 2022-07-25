@@ -13,8 +13,8 @@ typedef struct aluno
         struct materias
         {
             char nome[7][50];
-            int nota;
-            int frequencia;
+            int nota[7];
+            int frequencia[7];
         } materias;
     } notas;
     
@@ -35,16 +35,25 @@ void main() {
 
     while (r1 != 3) {
         if (r1 == 1) {
+            system("clear");
+            fflush(stdin);
+            setbuf(stdin,0);
             if (n == 0) {
-                printf("Nenhum usuário cadastrado ainda...");
-                r1 = menu();
+                printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu: ");
+                if (getchar() == " ") {
+                        r1 = menu();
+                    }
             }else {
                 for (int i = 0; i < n; i++) {
-                    puts(vet_aluno[i].nome);
+                    printf("Nome: %s \nNúmero de matrícula: %d", vet_aluno[i].nome, vet_aluno[i].n_matricula);
+                    printf("Digite ENTER para sair: ");
+                    if (getchar() == "") {
+                        r1 = menu();
+                    }
                 }
             }
         } else if (r1 == 2) {
-
+            break;
         }
     }
     system(exit);
