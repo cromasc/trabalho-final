@@ -7,14 +7,14 @@
 
 typedef struct aluno
 {
-    char nome[100];
-    int n_matricula;
+    char nome_completo[MAX_LENGTH];
+    char n_matricula[MAX_LENGTH];
     struct notas
     {
         int cra;
         struct materias
         {
-            char nome[7][50];
+            char nome[7][MAX_LENGTH];
             int nota[7];
             int frequencia[7];
         } materias;
@@ -37,33 +37,46 @@ void main() {
     r1 = menu();
 
     while (r1 != 3) {
+        fflush(stdin); setbuf(stdin, 0);
         if (r1 == 1) {
             system("clear");
-            fflush(stdin);
-            setbuf(stdin,0);
+
             if (n == 0) {
-                printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu: ");
-                if (getchar() == " ") {
-                        r1 = menu();
-                    }
-            }else {
+                printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu.");
+                if (getchar() == '\n') {
+                    system("clear");
+                    r1 = menu();
+                }
+            } else {
                 for (int i = 0; i < n; i++) {
-<<<<<<< HEAD
-                    printf("Nome: %s \nNúmero de matrícula: %d", vet_aluno[i].nome, vet_aluno[i].n_matricula);
-                    printf("Digite ENTER para sair: ");
-                    if (getchar() == "") {
-                        r1 = menu();
+                    printf("Nome: %s \nNúmero de matrícula: %s", vet_aluno[i].nome_completo, vet_aluno[i].n_matricula);
                     }
-=======
-                    printf("Nome: %s", vet_aluno[i].nome);
-                    printf("Número de matrícula: %d", vet_aluno[i].n_matricula);
-                    
->>>>>>> b6d06e4bcb1240c103400301ad13071b5623181a
+                printf("Digite ENTER para sair.");
+                if (getchar() == '\n') {
+                    system("clear");
+                    r1 = menu();
                 }
             }
         } else if (r1 == 2) {
-            break;
+            system("clear");
+            fflush(stdin); setbuf(stdin,0);
+
+            printf("Digite o nome do aluno: ");  fgets(vet_aluno[n].nome_completo, MAX_LENGTH, stdin); fflush(stdin);
+            vet_aluno[n].nome_completo[strcspn(vet_aluno[n].nome_completo, "\n")] = 0;
+            printf("Digite o número de matrícula: "); fgets(vet_aluno[n].n_matricula, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, 0);
+            n += 1;
+            system("clear");
+            r1 = menu();
+        } else {
+            system("clear");
+            fflush(stdin); setbuf(stdin,0);
+            
+            printf("Opção não válida.\n\nDigite ENTER para voltar ao menu.");
+            if (getchar() == '\n') {
+                system("clear");
+                r1 = menu();
+            }
         }
     }
-    system(exit);
+    system("exit");
 }
