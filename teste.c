@@ -11,7 +11,7 @@ typedef struct aluno
     char n_matricula[MAX_LENGTH];
     struct notas
     {
-        int cra;
+        float cra;
         struct materias
         {
             char nome[7][MAX_LENGTH];
@@ -61,8 +61,9 @@ void main() {
             system("clear");
             fflush(stdin); setbuf(stdin,0);
 
-            printf("Digite o nome do aluno: ");  fgets(vet_aluno[n].nome_completo, MAX_LENGTH, stdin); fflush(stdin);
+            printf("Digite o nome do aluno: ");  fgets(vet_aluno[n].nome_completo, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin,0);
             vet_aluno[n].nome_completo[strcspn(vet_aluno[n].nome_completo, "\n")] = 0;
+            
             printf("Digite o número de matrícula: "); fgets(vet_aluno[n].n_matricula, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, 0);
             n += 1;
             system("clear");
