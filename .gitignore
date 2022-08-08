@@ -1,2 +1,7 @@
 # VsCode folder
 .vscode
+
+*.out
+
+tst.c
+main.c
