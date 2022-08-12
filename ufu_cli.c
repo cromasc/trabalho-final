@@ -43,7 +43,7 @@ int nenhum_usuario()
 
 int imprime_usuarios(FILE *arq)
 {
-    aluno aluno;
+    aluno aluno; int EOF_ctrl;
 
     strcpy(aluno.n_matricula, "default");
     strcpy(aluno.nome_completo, "default");
@@ -55,12 +55,14 @@ int imprime_usuarios(FILE *arq)
     } else {
         while(!feof(arq))
         {
-            fread(&aluno, sizeof(struct aluno), 1, arq);
+            EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) {
                 printf("Erro na leitura do arquivo");
             } else {
-                printf("Nome: %s\n", aluno.nome_completo);
-                printf("Número de matrícula: %s\n", aluno.n_matricula);
+                if (EOF_ctrl != 0) {
+                    printf("Nome: %s\n", aluno.nome_completo);
+                    printf("Número de matrícula: %s\n", aluno.n_matricula);
+                }
             }
         }
         printf("Digite ENTER para sair.");
