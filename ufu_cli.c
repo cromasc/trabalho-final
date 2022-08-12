@@ -19,105 +19,127 @@ typedef struct aluno
             int frequencia[7];
         } materias;
     } notas;
-    
+
 } aluno;
 
-
-int menu() {
+int menu()
+{
     int r = 4;
     printf("Bem vindo ao servidor da UFU.\nPara visualizar a lista de alunos, tecle 1.\nCadastrar um novo aluno, tecle 2.\nPara sair do programa, tecle 0.\n\nResposta ----> ");
-    scanf("%d", &r);
-    fflush(stdin); setbuf(stdin, NULL);
+    scanf("%d", &r); fflush(stdin); setbuf(stdin, NULL);
+    
     return r;
 }
 
-int nenhum_usuario() {
+int nenhum_usuario()
+{
     printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu.");
-    if (getchar() == '\n') {
+    if (getchar() == '\n')
+    {
         system("clear");
         return menu();
     }
 }
 
-int print_users(aluno vetor[], int n) {
-    for (int i = 0; i < n; i++) {
-        printf("Nome: %s \nNúmero de matrícula: %s", vetor[i].nome_completo, vetor[i].n_matricula);
+int imprime_usuarios(FILE *arq)
+{
+    aluno aluno;
+
+    strcpy(aluno.n_matricula, "default");
+    strcpy(aluno.nome_completo, "default");
+
+    if (arq == NULL) 
+    {
+        printf("Erro na abertura do arquivo");
+        system("exit");
+    } else {
+        while(!feof(arq))
+        {
+            fread(&aluno, sizeof(struct aluno), 1, arq);
+            if (ferror(arq)) {
+                printf("Erro na leitura do arquivo");
+            } else {
+                printf("Nome: %s\n", aluno.nome_completo);
+                printf("Número de matrícula: %s\n", aluno.n_matricula);
+            }
         }
-    printf("Digite ENTER para sair.");
-    if (getchar() == '\n') {
-        system("clear");
-        return menu();
+        printf("Digite ENTER para sair.");
+        if (getchar() == '\n')
+        {
+            system("clear");
+            return menu();
+        }
     }
 }
 
-int cadastro(aluno vetor[], int *index) {
-    int i = 0;
-    printf("Digite o nome do aluno: ");  fgets(vetor[*index].nome_completo, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
+int cadastro()
+{
+    FILE *arq = fopen("users.txt", "a"); aluno aluno;
 
-    while(vetor[0].nome_completo[i] != '\0') {
-        if (vetor[0].nome_completo[i] == '\n') {
-            vetor[0].nome_completo[i] = '\0';
-            break;
-        }
-        i++;
-    }
-    // vetor[*index].nome_completo[strcspn(vetor[*index].nome_completo, "\n")] = 0;
+    if (arq == NULL) 
+    {
+        printf("Erro na abertura do arquivo");
+        system("exit");
+    } else {
+        printf("Digite o nome do aluno: "); 
+        fgets(aluno.nome_completo, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
+        aluno.nome_completo[strcspn(aluno.nome_completo, "\n")] = 0;
 
-    printf("Digite o número de matrícula: "); fgets(vetor[*index].n_matricula, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-    *index++;
+        printf("Digite o número de matrícula: "); 
+        fgets(aluno.n_matricula, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
+
+        fwrite(&aluno, sizeof(struct aluno), 1, arq);
+    } fclose(arq);
+
     system("clear");
     return menu();
+    
 }
 
-int main() {
-    setlocale(LC_ALL,"Portuguese");
-    // FILE *arq;
-
-    // arq = fopen("users.txt", "a");
-
-    // if (arq == NULL) {
-    //     return 1;
-    // }
-
-    int n = 0, choice;
-    aluno vet_aluno[n];
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+    int choice; aluno aluno;
 
     choice = menu();
-
-    while (choice != 0) {
-        fflush(stdin); setbuf(stdin, NULL);
-
-        switch (choice) {
+    while (choice != 0)
+    {
+        fflush(stdin);setbuf(stdin, NULL);
+        
+        switch (choice)
+        {
         case 0:
             break;
-        
+
         case 1:
             system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-            if (n == 0) {
+            FILE *arq = fopen("users.txt", "r");
+            if (arq == NULL) {
                 choice = nenhum_usuario();
             } else {
-                choice = print_users(vet_aluno, n);
+                choice = imprime_usuarios(arq);
+                fclose(arq);
             }
             break;
-
+            
         case 2:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
-
-            choice = cadastro(vet_aluno, &n);
+            system("clear"); fflush(stdin);setbuf(stdin, NULL);
+            
+            choice = cadastro();
             break;
-        
+
         default:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
-                
+            system("clear"); fflush(stdin);setbuf(stdin, NULL);
+            
             printf("Opção não válida.\n\nDigite ENTER para voltar ao menu.");
-            if (getchar() == '\n') {
+            if (getchar() == '\n')
+            {
                 system("clear");
                 choice = menu();
             }
             break;
         }
     }
-    // fclose(arq);
     return 1;
 }
