@@ -1,5 +1,6 @@
+file=ufu_cli
+
 run: 
-	@gcc ufu_cli.c -o ufu_cli.out
-	@./ufu_cli.out
-	@rm -r ufu_cli.out
-	@clear
+	@gcc $(file).c -o $(file).out
+	@./$(file).out
+	@rm -r $(file).out

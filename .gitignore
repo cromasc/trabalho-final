@@ -1,7 +1,8 @@
-# VsCode folder
 .vscode
 
 *.out
 
 tst.c
-main.c
+
+users.txt
+users.txt
