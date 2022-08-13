@@ -1,6 +1,6 @@
-file=ufu_cli
+file=main
 
 run: 
-	@gcc $(file).c -o $(file).out
-	@./$(file).out
-	@rm -r $(file).out
+	@gcc $(file).c -o $(file)
+	@./$(file)
+	@rm -r $(file)

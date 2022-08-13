@@ -1,8 +1,7 @@
 .vscode
 
-*.out
-
 tst.c
 
-users.txt
-users.txt
+users
+
+main

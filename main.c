@@ -3,8 +3,9 @@
 #include <string.h>
 #include <locale.h>
 
-#define MAX_LENGTH 256
 #define DEFAULT 8
+#define MAX_LENGTH 256
+#define flush while (getchar() != '\n');
 
 typedef struct aluno
 {
@@ -27,7 +28,12 @@ typedef struct aluno
 int menu()
 {
     int r = 4;
-    printf("Bem vindo ao servidor da UFU.\nPara visualizar a lista de alunos, tecle 1.\nCadastrar um novo aluno, tecle 2.\nPara sair do programa, tecle 0.\n\nResposta ----> ");
+    printf("Bem vindo ao servidor da UFU.\n");
+    printf("Para visualizar a lista de alunos, tecle 1.\n");
+    printf("Cadastrar um novo aluno, tecle 2.\n");
+    printf("Para buscar algum aluno específico, tecle 3.");
+    printf("Para sair do programa, tecle 0.\n");
+    printf("\nResposta ----> ");
     scanf("%d", &r); fflush(stdin); setbuf(stdin, NULL);
     
     return r;
@@ -35,7 +41,7 @@ int menu()
 
 int nenhum_usuario()
 {
-    printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu.");
+    printf("Nenhum usuário cadastrado ainda...\n\nDigite ENTER para voltar ao menu. ");
     if (getchar() == '\n')
     {
         system("clear");
@@ -46,9 +52,6 @@ int nenhum_usuario()
 int imprime_usuarios(FILE *arq)
 {
     aluno aluno; int EOF_ctrl;
-
-    strcpy(aluno.n_matricula, "default");
-    strcpy(aluno.nome_completo, "default");
 
     if (arq == NULL) 
     {
@@ -84,7 +87,7 @@ int imprime_usuarios(FILE *arq)
             }
         }
         printf("--------------------------------------------------------------\n");
-        printf("Digite ENTER para sair.");
+        printf("Digite ENTER para sair. ");
         if (getchar() == '\n')
         {
             system("clear");
@@ -95,7 +98,7 @@ int imprime_usuarios(FILE *arq)
 
 int cadastro()
 {
-    FILE *arq = fopen("users.txt", "a"); aluno aluno; 
+    FILE *arq = fopen("users", "a"); aluno aluno; 
     aluno.notas.cra = 0;
 
     if (arq == NULL) 
@@ -254,6 +257,73 @@ int cadastro()
     return menu();
 }
 
+int busca(FILE *arq) 
+{
+    aluno aluno; int EOF_ctrl; char comparador[MAX_LENGTH]; int n = 0;
+
+    if (arq == NULL) 
+    {
+        printf("Erro na abertura do arquivo");
+        system("exit");
+    } 
+    else 
+    {
+        printf("Digite o número de matrícula que deseja encontrar: ");
+        fgets(comparador, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
+        comparador[strcspn(comparador, "\n")] = 0;
+
+        while(!feof(arq))
+        {
+            EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
+            if (ferror(arq)) 
+            {
+                printf("Erro na leitura do arquivo");
+            } 
+            else 
+            {
+                if (EOF_ctrl != 0) 
+                {
+                    if (strcmp(aluno.n_matricula, comparador) == 0)
+                    {
+                        printf("--------------------------------------------------------------\n");
+                        printf("%s -> ", aluno.nome_completo);
+                        printf("%s\n\n", aluno.n_matricula);
+
+                        for (int i = 0; i < aluno.notas.numero_de_materias; i++)
+                        {
+                            printf("%s: ", aluno.notas.materias.nome[i]);
+                            printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                            printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
+
+                        }
+                        printf("\nCRA = %.2f\n", aluno.notas.cra);
+                        printf("--------------------------------------------------------------\n");
+                        n = 1;
+                    }
+                }
+            }
+        }
+        if (n == 0)
+        {
+            printf("Nenhum usuário encontrado.\n\n");
+        }
+
+        printf("Digite 1 para procurar outro usuário, ou digite ENTER para sair. ");
+        char c = getchar();
+        flush;
+        if (c == '\n')
+        {
+            system("clear"); setbuf(stdin, NULL);
+            return menu();
+        } 
+        else if (c == '1')
+        {
+            system("clear"); setbuf(stdin, NULL);
+            return 3;
+        }
+    }
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -272,7 +342,7 @@ int main()
         case 1:
             system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-            FILE *arq = fopen("users.txt", "r");
+            FILE *arq = fopen("users", "r");
             if (arq == NULL) 
             {
                 escolha = nenhum_usuario();
@@ -285,13 +355,28 @@ int main()
             break;
             
         case 2:
-            system("clear"); fflush(stdin);setbuf(stdin, NULL);
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
             
             escolha = cadastro();
             break;
 
+        case 3:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+
+            arq = fopen("users", "r");
+            if (arq == NULL) 
+            {
+                escolha = nenhum_usuario();
+            } 
+            else 
+            {
+                escolha = busca(arq);
+                fclose(arq);
+            }
+            break;
+
         default:
-            system("clear"); fflush(stdin);setbuf(stdin, NULL);
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
             
             printf("Opção não válida.\n\nDigite ENTER para voltar ao menu.");
             if (getchar() == '\n')
