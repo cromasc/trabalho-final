@@ -364,6 +364,7 @@ int adiciona(FILE *arq)
                         printf("\nCRA = %.2f\n", aluno.notas.cra);
                         printf("--------------------------------------------------------------\n");
                         n = TRUE;
+                        break;
                     }
                 }
             }
@@ -398,8 +399,8 @@ int adiciona(FILE *arq)
 
             while (!feof(arq))
             {
-                fread(&aluno, sizeof(aluno), 1, arq);
-                if (strcmp(aluno.n_matricula, comparador))
+                EOF_ctrl = fread(&aluno, sizeof(aluno), 1, arq);
+                if (strcmp(aluno.n_matricula, comparador) != 0 && EOF_ctrl != 0)
                 {
                     fwrite(&aluno, sizeof(struct aluno), 1, temp);
                 }
