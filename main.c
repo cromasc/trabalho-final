@@ -32,7 +32,7 @@ int menu()
     printf("[1] - Visualizar a lista de alunos.\n");
     printf("[2] - Cadastrar um novo aluno.\n");
     printf("[3] - Buscar algum aluno específico.\n");
-    printf("[4] - Adicionar matéria para algum usuário.\n");
+    printf("[4] - Adicionar matéria para algum aluno.\n");
     printf("[0] - Sair do programa.\n");
     printf("\nResposta ----> ");
     scanf("%d", &r); fflush(stdin); setbuf(stdin, NULL);
@@ -337,7 +337,8 @@ int busca(FILE *arq)
             printf("Nenhum usuário encontrado.\n\n");
         }
 
-        printf("Tecle 1 para procurar outro usuário, ou tecle ENTER para sair. ");
+        printf("[1] - Procurar outro usuário.\n");
+        printf("[ENTER 2x] - Voltar ao menu. ");
         char c = getchar();
         flush;
         if (c == '\n')
@@ -439,13 +440,15 @@ int adiciona(FILE *arq)
             remove("users");
             rename("temp", "users");
             printf("\n--------------------------------------------------------------\n");
-            printf("Tecle 1 para adicionar mais matérias, ou tecle ENTER para sair. ");
+            printf("[1] - Adicionar mais matérias.\n");
+            printf("[ENTER 2x] - Voltar ao menu. ");
         }
         else
         {
             printf("Nenhum usuário encontrado.\n\n");
             fclose(arq);
-            printf("Tecle 1 para procurar outro usuário, ou tecle ENTER para sair. ");
+            printf("[1] - Procurar outro usuário.\n");
+            printf("[ENTER 2x] - Voltar ao menu. ");
         }
 
         char c = getchar();
