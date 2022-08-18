@@ -250,7 +250,6 @@ int cadastro()
         fwrite(&aluno, sizeof(struct aluno), 1, arq);
         fclose(arq);
     }
-
     system("clear");
     return menu();
 }
@@ -351,13 +350,14 @@ int adiciona(FILE *arq)
                     printf("--------------------------------------------------------------\n");
                     printf("%s -> ", aluno.nome_completo);
                     printf("%s\n\n", aluno.n_matricula);
-                    
+
                     for (int i = 0; i < aluno.notas.numero_de_materias; i++)
                     {
                         printf("%s: ", aluno.notas.materias.nome[i]);
                         printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
                         printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
                     }
+
                     printf("\nCRA = %.2f\n", aluno.notas.cra);
                     printf("--------------------------------------------------------------\n");
 
