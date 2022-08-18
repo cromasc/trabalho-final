@@ -70,22 +70,20 @@ int imprime_usuarios(FILE *arq)
             {
                 printf("Erro na leitura do arquivo na linha 71.\n");
             } 
-            else 
+            else if (EOF_ctrl != 0) 
             {
-                if (EOF_ctrl != 0) 
-                {
-                    printf("--------------------------------------------------------------\n");
-                    printf("%s -> ", aluno.nome_completo);
-                    printf("%s\n\n", aluno.n_matricula);
+                printf("--------------------------------------------------------------\n");
+                printf("%s -> ", aluno.nome_completo);
+                printf("%s\n\n", aluno.n_matricula);
 
-                    for (int i = 0; i < aluno.notas.numero_de_materias; i++)
-                    {
-                        printf("%s: ", aluno.notas.materias.nome[i]);
-                        printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
-                        printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
-                    }
-                    printf("\nCRA = %.2f\n", aluno.notas.cra);
+                for (int i = 0; i < aluno.notas.numero_de_materias; i++)
+                {
+                    printf("%s: ", aluno.notas.materias.nome[i]);
+                    printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                    printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
                 }
+
+                printf("\nCRA = %.2f\n", aluno.notas.cra);
             }
         }
         printf("--------------------------------------------------------------\n");
@@ -276,27 +274,23 @@ int busca(FILE *arq)
             {
                 printf("Erro na leitura do arquivo na linha 277.\n");
             } 
-            else 
+            else if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
             {
-                if (EOF_ctrl != 0) 
-                {
-                    if (!strcmp(aluno.n_matricula, comparador))
-                    {
-                        printf("--------------------------------------------------------------\n");
-                        printf("%s -> ", aluno.nome_completo);
-                        printf("%s\n\n", aluno.n_matricula);
+                printf("--------------------------------------------------------------\n");
+                printf("%s -> ", aluno.nome_completo);
+                printf("%s\n\n", aluno.n_matricula);
 
-                        for (int i = 0; i < aluno.notas.numero_de_materias; i++)
-                        {
-                            printf("%s: ", aluno.notas.materias.nome[i]);
-                            printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
-                            printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
-                        }
-                        printf("\nCRA = %.2f\n", aluno.notas.cra);
-                        printf("--------------------------------------------------------------\n");
-                        n = TRUE;
-                    }
+                for (int i = 0; i < aluno.notas.numero_de_materias; i++)
+                {
+                    printf("%s: ", aluno.notas.materias.nome[i]);
+                    printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                    printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
                 }
+
+                printf("\nCRA = %.2f\n", aluno.notas.cra);
+                printf("--------------------------------------------------------------\n");
+                n = TRUE;
+                break;
             }
         }
         if (!n)
@@ -343,27 +337,23 @@ int adiciona(FILE *arq)
             {
                 printf("Erro na leitura do arquivo na linha 344.\n");
             } 
-            else 
+            else if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
             {
-                if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
+                printf("--------------------------------------------------------------\n");
+                printf("%s -> ", aluno.nome_completo);
+                printf("%s\n\n", aluno.n_matricula);
+
+                for (int i = 0; i < aluno.notas.numero_de_materias; i++)
                 {
-                    printf("--------------------------------------------------------------\n");
-                    printf("%s -> ", aluno.nome_completo);
-                    printf("%s\n\n", aluno.n_matricula);
-
-                    for (int i = 0; i < aluno.notas.numero_de_materias; i++)
-                    {
-                        printf("%s: ", aluno.notas.materias.nome[i]);
-                        printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
-                        printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
-                    }
-
-                    printf("\nCRA = %.2f\n", aluno.notas.cra);
-                    printf("--------------------------------------------------------------\n");
-
-                    n = TRUE;
-                    break;
+                    printf("%s: ", aluno.notas.materias.nome[i]);
+                    printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                    printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
                 }
+
+                printf("\nCRA = %.2f\n", aluno.notas.cra);
+                printf("--------------------------------------------------------------\n");
+                n = TRUE;
+                break;
             }
         }
 
