@@ -3,6 +3,8 @@
 #include <string.h>
 #include <locale.h>
 
+#define TRUE 1
+#define FALSE 0
 #define DEFAULT 8
 #define MAX_LENGTH 256
 #define flush while (getchar() != '\n');
@@ -56,7 +58,7 @@ int imprime_usuarios(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo");
+        printf("Erro na abertura do arquivo na linha 61.\n");
         exit(-1);
     } 
     else 
@@ -144,7 +146,6 @@ aluno adiciona_materias(aluno aluno, int inicio, int final)
         {
             printf("\nDigite o nome da matéria %d", i+1);
         }
-
         if (i != 0)
         {
             fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
@@ -199,7 +200,7 @@ int cadastro()
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo");
+        printf("Erro na abertura do arquivo na linha 203.\n");
         exit(-1);
     } 
     else 
@@ -214,7 +215,7 @@ int cadastro()
             fgets(comparador, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
             comparador[strcspn(comparador, "\n")] = 0;
 
-            if (verifica_matricula(arq, comparador) == 0)
+            if (!verifica_matricula(arq, comparador))
             {
                 strcpy(aluno.n_matricula, comparador);
             }
@@ -224,10 +225,11 @@ int cadastro()
                 printf("Número de matrícula já existente...\n");
             }
             rewind(arq);
-            
-        } while (verifica_matricula(arq, comparador));
 
-        while (1)
+        } 
+        while (verifica_matricula(arq, comparador));
+
+        while (TRUE)
         {
             printf("Digite o número de matérias que deseja guardar: ");
             scanf("%d", &aluno.notas.numero_de_materias); fflush(stdin); setbuf(stdin, NULL);
@@ -259,7 +261,7 @@ int busca(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo");
+        printf("Erro na abertura do arquivo na linha 264.\n");
         exit(-1);
     } 
     else 
@@ -293,12 +295,12 @@ int busca(FILE *arq)
                         }
                         printf("\nCRA = %.2f\n", aluno.notas.cra);
                         printf("--------------------------------------------------------------\n");
-                        n = 1;
+                        n = TRUE;
                     }
                 }
             }
         }
-        if (n == 0)
+        if (!n)
         {
             printf("Nenhum usuário encontrado.\n\n");
         }
@@ -326,7 +328,7 @@ int adiciona(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo");
+        printf("Erro na abertura do arquivo na linha 331.\n");
         exit(-1);
     } 
     else 
@@ -346,7 +348,7 @@ int adiciona(FILE *arq)
             {
                 if (EOF_ctrl != 0) 
                 {
-                    if (strcmp(aluno.n_matricula, comparador) == 0)
+                    if (!strcmp(aluno.n_matricula, comparador))
                     {
 
                         printf("--------------------------------------------------------------\n");
@@ -361,13 +363,13 @@ int adiciona(FILE *arq)
                         }
                         printf("\nCRA = %.2f\n", aluno.notas.cra);
                         printf("--------------------------------------------------------------\n");
-                        n = 1;
+                        n = TRUE;
                     }
                 }
             }
         }
 
-        if (n == 1)
+        if (n)
         {
             while (n)
             {
@@ -438,7 +440,15 @@ int adiciona(FILE *arq)
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    int escolha; aluno aluno;
+    int escolha; aluno aluno; FILE *arq; int teste = FALSE;
+
+    arq = fopen("test", "r");
+    if (arq != NULL)
+    {
+        rename("test", "users");
+        fclose(arq);
+        teste = TRUE;
+    }
 
     escolha = menu();
     while (escolha != 0)
@@ -447,70 +457,71 @@ int main()
         
         switch (escolha)
         {
-        case 0:
-            break;
+            case 0:
+                break;
 
-        case 1:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+            case 1:
+                system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-            FILE *arq = fopen("users", "r");
-            if (arq == NULL) 
-            {
-                escolha = nenhum_usuario();
-            } 
-            else 
-            {
-                escolha = imprime_usuarios(arq);
-                fclose(arq);
-            }
-            break;
-            
-        case 2:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
-            
-            escolha = cadastro();
-            break;
+                arq = fopen("users", "r");
+                if (arq == NULL) 
+                {
+                    escolha = nenhum_usuario();
+                } 
+                else 
+                {
+                    escolha = imprime_usuarios(arq);
+                    fclose(arq);
+                }
+                break;
+                
+            case 2:
+                system("clear"); fflush(stdin); setbuf(stdin, NULL);
+                
+                escolha = cadastro();
+                break;
 
-        case 3:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+            case 3:
+                system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-            arq = fopen("users", "r");
-            if (arq == NULL) 
-            {
-                escolha = nenhum_usuario();
-            } 
-            else 
-            {
-                escolha = busca(arq);
-                fclose(arq);
-            }
-            break;
+                arq = fopen("users", "r");
+                if (arq == NULL) 
+                {
+                    escolha = nenhum_usuario();
+                } 
+                else 
+                {
+                    escolha = busca(arq);
+                    fclose(arq);
+                }
+                break;
 
-        case 4:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+            case 4:
+                system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-            arq = fopen("users", "r");
-            if (arq == NULL) 
-            {
-                escolha = nenhum_usuario();
-            } 
-            else 
-            {
-                escolha = adiciona(arq);
-            }
-            break;
+                arq = fopen("users", "r");
+                if (arq == NULL) 
+                {
+                    escolha = nenhum_usuario();
+                } 
+                else 
+                {
+                    escolha = adiciona(arq);
+                }
+                break;
 
-        default:
-            system("clear"); fflush(stdin); setbuf(stdin, NULL);
-            
-            printf("Opção não válida.\n\nTecle ENTER para voltar ao menu.");
-            if (getchar() == '\n')
-            {
-                system("clear");
-                escolha = menu();
-            }
-            break;
+            default:
+                system("clear"); fflush(stdin); setbuf(stdin, NULL);
+                
+                printf("Opção não válida.\n\nTecle ENTER para voltar ao menu.");
+                if (getchar() == '\n')
+                {
+                    system("clear");
+                    escolha = menu();
+                }
+                break;
         }
     }
+    if (teste == TRUE) {rename("users", "test");}
     return 0;
 }
