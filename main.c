@@ -58,7 +58,7 @@ int imprime_usuarios(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 61.\n");
+        printf("Erro de abertura do arquivo na linha 61.\n");
         exit(-1);
     } 
     else 
@@ -68,7 +68,7 @@ int imprime_usuarios(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo");
+                printf("Erro na leitura do arquivo na linha 71.\n");
             } 
             else 
             {
@@ -179,7 +179,7 @@ int verifica_matricula(FILE *arq, char comparador[MAX_LENGTH])
         fread(&aluno, sizeof(struct aluno), 1, arq);
         if (ferror(arq)) 
         {
-            printf("Erro na leitura do arquivo");
+            printf("Erro na leitura do arquivo na linha 182.\n");
         } 
         else 
         {
@@ -260,7 +260,7 @@ int busca(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 264.\n");
+        printf("Erro na abertura do arquivo na linha 263.\n");
         exit(-1);
     } 
     else 
@@ -274,7 +274,7 @@ int busca(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo");
+                printf("Erro na leitura do arquivo na linha 277.\n");
             } 
             else 
             {
@@ -327,7 +327,7 @@ int adiciona(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 331.\n");
+        printf("Erro na abertura do arquivo na linha 330.\n");
         exit(-1);
     } 
     else 
@@ -341,7 +341,7 @@ int adiciona(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo");
+                printf("Erro na leitura do arquivo na linha 344.\n");
             } 
             else 
             {
