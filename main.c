@@ -204,9 +204,32 @@ float CRA(aluno aluno)
     return aluno.notas.cra;
 }
 
+int verifica_matricula(FILE *arq, char comparador[MAX_LENGTH])
+{
+    aluno aluno;
+    while(!feof(arq))
+    {
+        fread(&aluno, sizeof(struct aluno), 1, arq);
+        if (ferror(arq)) 
+        {
+            printf("Erro na leitura do arquivo");
+        } 
+        else 
+        {
+            if (strcmp(aluno.n_matricula, comparador) == 0)
+            {
+                rewind(arq);
+                return 1;
+            }
+        }
+    }
+    rewind(arq);
+    return 0;
+}
+
 int cadastro()
 {
-    FILE *arq = fopen("users", "a"); aluno aluno;
+    FILE *arq = fopen("users", "ra"); aluno aluno; char comparador[MAX_LENGTH];
 
     if (arq == NULL) 
     {
@@ -219,11 +242,26 @@ int cadastro()
         fgets(aluno.nome_completo, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
         aluno.nome_completo[strcspn(aluno.nome_completo, "\n")] = 0;
 
-        printf("Digite o número de matrícula: "); 
-        fgets(aluno.n_matricula, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-        aluno.n_matricula[strcspn(aluno.n_matricula, "\n")] = 0;
+        do
+        {
+            printf("Digite o número de matrícula: "); 
+            fgets(comparador, MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
+            comparador[strcspn(comparador, "\n")] = 0;
 
-        while (0 == 0)
+            if (verifica_matricula(arq, comparador) == 0)
+            {
+                strcpy(aluno.n_matricula, comparador);
+            }
+            else
+            {
+                system("clear");
+                printf("Número de matrícula já existente...\n");
+            }
+            rewind(arq);
+            
+        } while (verifica_matricula(arq, comparador));
+
+        while (1)
         {
             printf("Digite o número de matérias que deseja guardar: ");
             scanf("%d", &aluno.notas.numero_de_materias); fflush(stdin); setbuf(stdin, NULL);
@@ -364,7 +402,7 @@ int adiciona(FILE *arq)
 
         if (n == 1)
         {
-            while (0 == 0)
+            while (1)
             {
                 printf("\nDigite quantas matérias deseja adicionar: ");
                 scanf("%d", &novas_materias); fflush(stdin); setbuf(stdin, NULL);
