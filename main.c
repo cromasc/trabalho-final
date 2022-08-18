@@ -336,11 +336,11 @@ int busca(FILE *arq)
         {
             printf("Nenhum usuário encontrado.\n\n");
         }
-
+        
         printf("[1] - Procurar outro usuário.\n");
         printf("[ENTER 2x] - Voltar ao menu. ");
-        char c = getchar();
-        flush;
+
+        char c = getchar(); flush;
         if (c == '\n')
         {
             system("clear"); setbuf(stdin, NULL);
@@ -403,7 +403,7 @@ int adiciona(FILE *arq)
 
         if (n == 1)
         {
-            while (1)
+            while (n)
             {
                 printf("\nDigite quantas matérias deseja adicionar: ");
                 scanf("%d", &novas_materias); fflush(stdin); setbuf(stdin, NULL);
@@ -428,17 +428,21 @@ int adiciona(FILE *arq)
             fwrite(&aluno, sizeof(struct aluno), 1, temp);
             rewind(arq);
 
-            while(!feof(arq)){
+            while (!feof(arq))
+            {
                 fread(&aluno, sizeof(aluno), 1, arq);
-                if(strcmp(aluno.n_matricula, comparador)){
+                if (strcmp(aluno.n_matricula, comparador))
+                {
                     fwrite(&aluno, sizeof(struct aluno), 1, temp);
                 }
             }
 
             fclose(temp);
             fclose(arq);
+
             remove("users");
             rename("temp", "users");
+
             printf("\n--------------------------------------------------------------\n");
             printf("[1] - Adicionar mais matérias.\n");
             printf("[ENTER 2x] - Voltar ao menu. ");
@@ -451,8 +455,7 @@ int adiciona(FILE *arq)
             printf("[ENTER 2x] - Voltar ao menu. ");
         }
 
-        char c = getchar();
-        flush;
+        char c = getchar(); flush;
         if (c == '\n')
         {
             system("clear"); setbuf(stdin, NULL);
