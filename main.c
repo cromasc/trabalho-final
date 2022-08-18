@@ -57,7 +57,7 @@ int imprime_usuarios(FILE *arq)
     if (arq == NULL) 
     {
         printf("Erro na abertura do arquivo");
-        system("exit");
+        exit(-1);
     } 
     else 
     {
@@ -105,88 +105,54 @@ aluno adiciona_materias(aluno aluno, int inicio, int final)
             printf("\nDigite o nome da primeira matéria: ");
             fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
             aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
+
             printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
             scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
+            
             printf("Digite a porcentagem de frequencia obtida em %s \n(exemplo: 65): ", aluno.notas.materias.nome[i]);
             scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 1) 
         {
             printf("\nDigite o nome da segunda matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 2) 
         {
             printf("\nDigite o nome da terceira matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 3) 
         {
             printf("\nDigite o nome da quarta matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 4) 
         {
             printf("\nDigite o nome da quinta matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 5) 
         {
             printf("\nDigite o nome da sexta matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 6) 
         {
             printf("\nDigite o nome da sétima matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else if (i == 7) 
         {
             printf("\nDigite o nome da oitava matéria: ");
-            fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
-            aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
-            printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
-            printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
-            scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         } 
         else 
         {
             printf("\nDigite o nome da matéria %d", i+1);
+        }
+
+        if (i != 0)
+        {
             fgets(aluno.notas.materias.nome[i], MAX_LENGTH, stdin); fflush(stdin); setbuf(stdin, NULL);
             aluno.notas.materias.nome[i][strcspn(aluno.notas.materias.nome[i], "\n")] = 0;
+
             printf("Digite a nota final obtida em %s: ", aluno.notas.materias.nome[i]);
             scanf("%f", &aluno.notas.materias.nota_final[i]); fflush(stdin); setbuf(stdin, NULL);
+            
             printf("Digite a porcentagem de frequencia obtida em %s: ", aluno.notas.materias.nome[i]);
             scanf("%d", &aluno.notas.materias.frequencia[i]); fflush(stdin); setbuf(stdin, NULL);
         }
@@ -229,12 +195,12 @@ int verifica_matricula(FILE *arq, char comparador[MAX_LENGTH])
 
 int cadastro()
 {
-    FILE *arq = fopen("users", "ra"); aluno aluno; char comparador[MAX_LENGTH];
+    FILE *arq = fopen("users", "a+"); aluno aluno; char comparador[MAX_LENGTH];
 
     if (arq == NULL) 
     {
         printf("Erro na abertura do arquivo");
-        system("exit");
+        exit(-1);
     } 
     else 
     {
@@ -294,7 +260,7 @@ int busca(FILE *arq)
     if (arq == NULL) 
     {
         printf("Erro na abertura do arquivo");
-        system("exit");
+        exit(-1);
     } 
     else 
     {
@@ -336,7 +302,7 @@ int busca(FILE *arq)
         {
             printf("Nenhum usuário encontrado.\n\n");
         }
-        
+
         printf("[1] - Procurar outro usuário.\n");
         printf("[ENTER 2x] - Voltar ao menu. ");
 
@@ -361,7 +327,7 @@ int adiciona(FILE *arq)
     if (arq == NULL) 
     {
         printf("Erro na abertura do arquivo");
-        system("exit");
+        exit(-1);
     } 
     else 
     {
