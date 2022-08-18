@@ -445,69 +445,69 @@ int main()
         
         switch (escolha)
         {
-            case 0:
-                break;
+        case 0:
+            break;
 
-            case 1:
-                system("clear"); fflush(stdin); setbuf(stdin, NULL);
+        case 1:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-                arq = fopen("users", "r");
-                if (arq == NULL) 
-                {
-                    escolha = nenhum_usuario();
-                } 
-                else 
-                {
-                    escolha = imprime_usuarios(arq);
-                    fclose(arq);
-                }
-                break;
-                
-            case 2:
-                system("clear"); fflush(stdin); setbuf(stdin, NULL);
-                
-                escolha = cadastro();
-                break;
+            arq = fopen("users", "r");
+            if (arq == NULL) 
+            {
+                escolha = nenhum_usuario();
+            } 
+            else 
+            {
+                escolha = imprime_usuarios(arq);
+                fclose(arq);
+            }
+            break;
+            
+        case 2:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+            
+            escolha = cadastro();
+            break;
 
-            case 3:
-                system("clear"); fflush(stdin); setbuf(stdin, NULL);
+        case 3:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-                arq = fopen("users", "r");
-                if (arq == NULL) 
-                {
-                    escolha = nenhum_usuario();
-                } 
-                else 
-                {
-                    escolha = busca(arq);
-                    fclose(arq);
-                }
-                break;
+            arq = fopen("users", "r");
+            if (arq == NULL) 
+            {
+                escolha = nenhum_usuario();
+            } 
+            else 
+            {
+                escolha = busca(arq);
+                fclose(arq);
+            }
+            break;
 
-            case 4:
-                system("clear"); fflush(stdin); setbuf(stdin, NULL);
+        case 4:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
 
-                arq = fopen("users", "r");
-                if (arq == NULL) 
-                {
-                    escolha = nenhum_usuario();
-                } 
-                else 
-                {
-                    escolha = adiciona(arq);
-                }
-                break;
+            arq = fopen("users", "r");
+            if (arq == NULL) 
+            {
+                escolha = nenhum_usuario();
+            } 
+            else 
+            {
+                escolha = adiciona(arq);
+            }
+            break;
 
-            default:
-                system("clear"); fflush(stdin); setbuf(stdin, NULL);
-                
-                printf("Opção não válida.\n\nTecle ENTER para voltar ao menu.");
-                if (getchar() == '\n')
-                {
-                    system("clear");
-                    escolha = menu();
-                }
-                break;
+        default:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+            
+            printf("Opção não válida.\n\nTecle ENTER para voltar ao menu.");
+            if (getchar() == '\n')
+            {
+                system("clear");
+                escolha = menu();
+            }
+            break;
         }
     }
     if (teste == TRUE) {rename("users", "test");}
