@@ -281,7 +281,7 @@ int busca(FILE *arq)
             {
                 if (EOF_ctrl != 0) 
                 {
-                    if (strcmp(aluno.n_matricula, comparador) == 0)
+                    if (!strcmp(aluno.n_matricula, comparador))
                     {
                         printf("--------------------------------------------------------------\n");
                         printf("%s -> ", aluno.nome_completo);
@@ -346,26 +346,23 @@ int adiciona(FILE *arq)
             } 
             else 
             {
-                if (EOF_ctrl != 0) 
+                if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
                 {
-                    if (!strcmp(aluno.n_matricula, comparador))
+                    printf("--------------------------------------------------------------\n");
+                    printf("%s -> ", aluno.nome_completo);
+                    printf("%s\n\n", aluno.n_matricula);
+                    
+                    for (int i = 0; i < aluno.notas.numero_de_materias; i++)
                     {
-
-                        printf("--------------------------------------------------------------\n");
-                        printf("%s -> ", aluno.nome_completo);
-                        printf("%s\n\n", aluno.n_matricula);
-
-                        for (int i = 0; i < aluno.notas.numero_de_materias; i++)
-                        {
-                            printf("%s: ", aluno.notas.materias.nome[i]);
-                            printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
-                            printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
-                        }
-                        printf("\nCRA = %.2f\n", aluno.notas.cra);
-                        printf("--------------------------------------------------------------\n");
-                        n = TRUE;
-                        break;
+                        printf("%s: ", aluno.notas.materias.nome[i]);
+                        printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                        printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
                     }
+                    printf("\nCRA = %.2f\n", aluno.notas.cra);
+                    printf("--------------------------------------------------------------\n");
+
+                    n = TRUE;
+                    break;
                 }
             }
         }
