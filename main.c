@@ -29,12 +29,13 @@ typedef struct aluno
 
 int menu()
 {
-    int r = 4;
+    int r = 100;
     printf("Bem vindo ao servidor da UFU. Tecle uma das seguintes opções para prosseguir:\n");
     printf("[1] - Visualizar a lista de alunos.\n");
     printf("[2] - Cadastrar um novo aluno.\n");
     printf("[3] - Buscar algum aluno específico.\n");
     printf("[4] - Adicionar matéria para algum aluno.\n");
+    printf("[5] - Mostrar pessoas cujo CRA seja maior que 80.\n");
     printf("[0] - Sair do programa.\n");
     printf("\nResposta ----> ");
     scanf("%d", &r); fflush(stdin); setbuf(stdin, NULL);
@@ -425,6 +426,50 @@ int adiciona(FILE *arq)
     }
 }
 
+int maior_q_80(FILE* arq)
+{
+    aluno aluno; int EOF_ctrl;
+
+    if (arq == NULL) 
+    {
+        printf("Erro de abertura do arquivo na linha 61.\n");
+        exit(-1);
+    } 
+    else 
+    {
+        while(!feof(arq))
+        {
+            EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
+            if (ferror(arq)) 
+            {
+                printf("Erro na leitura do arquivo na linha 71.\n");
+            } 
+            else if (EOF_ctrl != 0 && aluno.notas.cra >= 80) 
+            {
+                printf("--------------------------------------------------------------\n");
+                printf("%s -> ", aluno.nome_completo);
+                printf("%s\n\n", aluno.n_matricula);
+
+                for (int i = 0; i < aluno.notas.numero_de_materias; i++)
+                {
+                    printf("%s: ", aluno.notas.materias.nome[i]);
+                    printf("nota final: %.1f, ", aluno.notas.materias.nota_final[i]);
+                    printf("Frequência de %d%%\n", aluno.notas.materias.frequencia[i]);
+                }
+
+                printf("\nCRA = %.2f\n", aluno.notas.cra);
+            }
+        }
+        printf("--------------------------------------------------------------\n");
+        printf("Tecle ENTER para sair. ");
+        if (getchar() == '\n')
+        {
+            system("clear");
+            return menu();
+        }
+    }
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -495,6 +540,21 @@ int main()
             else 
             {
                 escolha = adiciona(arq);
+            }
+            break;
+
+        case 5:
+            system("clear"); fflush(stdin); setbuf(stdin, NULL);
+
+            arq = fopen("users", "r");
+            if (arq == NULL) 
+            {
+                escolha = nenhum_usuario();
+            } 
+            else 
+            {
+                escolha = maior_q_80(arq);
+                fclose(arq);
             }
             break;
 
