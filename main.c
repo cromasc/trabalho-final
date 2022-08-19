@@ -61,7 +61,7 @@ int imprime_usuarios(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro de abertura do arquivo na linha 61.\n");
+        printf("Erro de abertura do arquivo na linha 64.\n");
         exit(-1);
     } 
     else 
@@ -71,7 +71,7 @@ int imprime_usuarios(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo na linha 71.\n");
+                printf("Erro na leitura do arquivo na linha 74.\n");
             } 
             else if (EOF_ctrl != 0) 
             {
@@ -180,7 +180,7 @@ int verifica_matricula(FILE *arq, char comparador[MAX_LENGTH])
         fread(&aluno, sizeof(struct aluno), 1, arq);
         if (ferror(arq)) 
         {
-            printf("Erro na leitura do arquivo na linha 182.\n");
+            printf("Erro na leitura do arquivo na linha 183.\n");
         } 
         else 
         {
@@ -201,7 +201,7 @@ int cadastro()
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 203.\n");
+        printf("Erro na abertura do arquivo na linha 204.\n");
         exit(-1);
     } 
     else 
@@ -261,7 +261,7 @@ int busca(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 263.\n");
+        printf("Erro na abertura do arquivo na linha 264.\n");
         exit(-1);
     } 
     else 
@@ -275,7 +275,7 @@ int busca(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo na linha 277.\n");
+                printf("Erro na leitura do arquivo na linha 278.\n");
             } 
             else if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
             {
@@ -324,7 +324,7 @@ int adiciona(FILE *arq)
 
     if (arq == NULL) 
     {
-        printf("Erro na abertura do arquivo na linha 330.\n");
+        printf("Erro na abertura do arquivo na linha 327.\n");
         exit(-1);
     } 
     else 
@@ -338,7 +338,7 @@ int adiciona(FILE *arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo na linha 344.\n");
+                printf("Erro na leitura do arquivo na linha 341.\n");
             } 
             else if (!strcmp(aluno.n_matricula, comparador) && EOF_ctrl != 0)
             {
@@ -434,7 +434,7 @@ int maior_q_80(FILE* arq)
 
     if (arq == NULL) 
     {
-        printf("Erro de abertura do arquivo na linha 61.\n");
+        printf("Erro de abertura do arquivo na linha 437.\n");
         exit(-1);
     } 
     else 
@@ -444,7 +444,7 @@ int maior_q_80(FILE* arq)
             EOF_ctrl = fread(&aluno, sizeof(struct aluno), 1, arq);
             if (ferror(arq)) 
             {
-                printf("Erro na leitura do arquivo na linha 71.\n");
+                printf("Erro na leitura do arquivo na linha 447.\n");
             } 
             else if (EOF_ctrl != 0 && aluno.notas.cra >= 80) 
             {
